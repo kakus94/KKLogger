@@ -73,9 +73,9 @@ public class KKLogManager {
   private func fileDestination(_ levelLog: XCGLogger.Level = .info) -> FileDestination { 
     // Skonfiguruj miejsce docelowe pliku
     let fileDestination = FileDestination(writeToFile: config.paths, 
-                                          identifier: "fileDestination", 
-                                          shouldAppend: true, 
-                                          appendMarker: "-- ** * START APP * ** --")
+                                          identifier: config.identifier, 
+                                          shouldAppend: config.shouldAppend, 
+                                          appendMarker: config.appendMarker)
     
     fileDestination.outputLevel = levelLog // Ustaw poziom logowania według potrzeb
     fileDestination.showLogIdentifier = false
@@ -114,6 +114,9 @@ public class KKLogManager {
     //  consoleDestination.outputLevel = .debug // Ustaw poziom logowania według potrzeb
     //  log.add(destination: consoleDestination)
     self.log = log
+    
+    print(log.fileLocation())
+    
     return log
    }()
   }
@@ -182,6 +185,11 @@ extension XCGLogger {
   public func setLevelDebug(_ level: XCGLogger.Level) { 
     let kklm = KKLogManager.share
     kklm.setLevelDebug(level)
+  }
+  
+  public func fileLocation() -> String { 
+    let kklm = KKLogManager.share
+    return kklm.config.paths.description
   }
   
 }
