@@ -17,10 +17,10 @@ public class KKLogManager {
   
   public var config: KKLogConfig = KKLogConfig.defaultConfig
   
-  var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
+  var log: XCGLogger? 
   
   func setLevelDebug(_ level: XCGLogger.Level ) { 
-    log.setup(level: level)
+    log?.setup(level: level)
   }
   
   func size() -> Double? { 
@@ -28,7 +28,7 @@ public class KKLogManager {
       let fileAttributes = try FileManager.default
         .attributesOfItem(atPath: config.paths.path())
       if let fileSize = fileAttributes[.size] as? Int64 {
-        log.info("Log file size: \(fileSize) B")
+        log?.info("Log file size: \(fileSize) B")
         return Double( fileSize / 1_000 )
       }
     } catch { 
@@ -57,16 +57,16 @@ public class KKLogManager {
       // Check if the file exists before attempting to delete it
       if fileManager.fileExists(atPath: config.paths.path) {        
         
-        log.remove(destinationWithIdentifier: "fileDestination")
+        log?.remove(destinationWithIdentifier: "fileDestination")
         try fileManager.removeItem(at: config.paths)
-        log.add(destination: fileDestination())                
+        log?.add(destination: fileDestination())                
         
-        log.info("File deleted successfully")
+        log?.info("File deleted successfully")
       } else {
-        log.warning("File does not exist")
+        log?.warning("File does not exist")
       }
     } catch {
-      log.error("Error deleting the file: \(error)")
+      log?.error("Error deleting the file: \(error)")
     }
   }
   
