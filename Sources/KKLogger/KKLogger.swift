@@ -25,7 +25,7 @@ public class LogManager {
 //    .appendingPathComponent("message.txt")
   
   
-  func size() -> Double? { 
+  public func size() -> Double? { 
     do { 
       let fileAttributes = try FileManager.default
         .attributesOfItem(atPath: config.paths.path())
@@ -40,7 +40,7 @@ public class LogManager {
     return nil    
   }
   
-  func sizeString() -> String? { 
+ public func sizeString() -> String? { 
     guard let size = size() else { return "not find" }    
     return String(format: "%.0f", size)
   }  
