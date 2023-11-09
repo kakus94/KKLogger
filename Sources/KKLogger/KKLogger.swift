@@ -15,19 +15,29 @@ public typealias LevelDestination = [XCGLogger.Level: String]
 @available(iOS 16.0, *)
 public class KKLogManager: XCGLogger { 
   
-  public init(config: KKLogConfig = .defaultConfig,
+  public init(config: KKLogConfig = .defaultConfig, 
+              consoleLevel: XCGLogger.Level = .verbose,
               levelDescriprion: LevelDestination = KKLogManager.levelDescriprionDefault) {
-    
-    self.config = config 
-    
     super.init()
+    
+    self.config = config     
     
     //Ustawienie opisow
     self.setLevelDescriptions(newDescs: levelDescriprion)
     
     // Dodaj miejsce docelowe pliku do loggera
-    self.add(destination: fileDestination())
-    
+    self.add(destination: fileDestination()) 
+    self.setLevelDebugConsole(consoleLevel)
+    self.logAppDetails()    
+  }
+  
+  public func getConsoleDestination() -> ConsoleDestination? { 
+    self.destination(withIdentifier: XCGLogger.Constants.baseConsoleDestinationIdentifier) as? ConsoleDestination
+  }
+  
+  public func setLevelDebugConsole(_ level: XCGLogger.Level) { 
+    guard let console = getConsoleDestination() else { return }
+    console.outputLevel = level
   }
 
   
@@ -53,17 +63,13 @@ public class KKLogManager: XCGLogger {
     }
   }
   
-  public func setLevelDebug(_ level: XCGLogger.Level ) { 
-    self.setup(level: level)
-  }
-  
   public func size() -> Double? { 
     do { 
       let fileAttributes = try FileManager.default
         .attributesOfItem(atPath: config.paths.path())
       if let fileSize = fileAttributes[.size] as? Int64 {
-        self.info("Log file size: \(fileSize) B")
-        return Double( fileSize / 1_000 )
+//        self.info("Log file size: \(fileSize) B")
+        return Double( Double(fileSize) / 1_000 )
       }
     } catch { 
       print(error)
@@ -80,8 +86,12 @@ public class KKLogManager: XCGLogger {
   public func whetherDeleteFile() { 
     guard let size = size() else { return }//KB 
     if size > config.sizeWhenDelateFile_KB { 
-      NotificationCenter.default.post(name: Notification.Name("AskDelateFile"), object: nil)
+      NotificationCenter.default.post(name: Notification.Name.askDelateFile, object: nil, userInfo: ["id": config.identifier, "path": config.paths])
     }
+  }
+  
+  public func NotificationObserver(_ handler: @escaping (Notification) -> Void) { 
+    NotificationCenter.default.addObserver(forName: Notification.Name.askDelateFile, object: nil, queue: .main, using: handler)
   }
   
   public func delete() { 
@@ -104,14 +114,14 @@ public class KKLogManager: XCGLogger {
     }
   }
   
-  private func fileDestination(_ levelLog: XCGLogger.Level = .info) -> FileDestination { 
+  private func fileDestination() -> FileDestination { 
     // Skonfiguruj miejsce docelowe pliku
     let fileDestination = FileDestination(writeToFile: config.paths, 
                                           identifier: config.identifier, 
                                           shouldAppend: config.shouldAppend, 
                                           appendMarker: config.appendMarker)
     
-    fileDestination.outputLevel = levelLog // Ustaw poziom logowania według potrzeb
+    fileDestination.outputLevel = config.levelDebug // Ustaw poziom logowania według potrzeb
     fileDestination.showLogIdentifier = false
     fileDestination.showFunctionName = true
     fileDestination.showThreadName = false
@@ -208,5 +218,12 @@ public struct KKLogConfig {
           shouldAppend: true,
           nameLogFile: "log.txt")
   }
+  
+}
+
+
+extension Notification.Name { 
+  
+  static let askDelateFile = Notification.Name("AskDelateFile")
   
 }
