@@ -4,20 +4,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "KKLogger",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "KKLogger",
-            targets: ["KKLogger"]),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "KKLogger"),
-        .testTarget(
-            name: "KKLoggerTests",
-            dependencies: ["KKLogger"]),
-    ]
+  name: "KKLogger",
+  products: [
+    // Produkty definiują pliki wykonywalne i biblioteki tworzone przez pakiet, dzięki czemu są one widoczne dla innych pakietów.
+    .library(
+      name: "KKLogger",
+      targets: ["KKLogger"]),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/DaveWoodCom/XCGLogger.git", from: "7.0.1")
+  ],
+  targets: [
+    // Cele to podstawowe elementy składowe pakietu, definiujące moduł lub zestaw testów.
+    // Cele mogą zależeć od innych celów w tym pakiecie i produktów od zależności.
+    .target(
+      name: "KKLogger",
+      dependencies: [ "XCGLogger" ],
+      path: "Sources",
+      resources: [
+      
+      ]
+    ),
+    .testTarget(
+      name: "KKLoggerTests",
+      dependencies: ["KKLogger"]),
+  ]
 )
