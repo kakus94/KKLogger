@@ -1,15 +1,15 @@
 # KKLogger
-Biblioteka do zapisu logow do pliku i consoli. 
-Jest maksymalnie uproszczona aby za pomoca jednej linijki kodu umozliwic zapis logow do pliku 
+Library for writing logs to a file and console.
+It is as simplified as possible. With one line of code we can start saving logs to a file 
 
-# Cel projektu
-* Proste użycie i konfiguracja 
-* Gotowy widok logow
-* wysylanie logow na serwer 
+# Project objective
+* Simple use and configuration
+* Ready login view
+* Sending logs to the server
 
 
-# Technologie
-Biblioteka oparta jest na XCGLogger https://github.com/DaveWoodCom/XCGLogger
+# Technologies
+The library is based on XCGLogger https://github.com/DaveWoodCom/XCGLogger
 
 # Installation
 
@@ -18,7 +18,7 @@ Biblioteka oparta jest na XCGLogger https://github.com/DaveWoodCom/XCGLogger
 Add the following entry to your package's dependencies:
 
 ```Swift
-.Package(url: "https://github.com/kakus94/KKLogger", majorVersion: 7)
+.Package(url: "https://github.com/kakus94/KKLogger", branch: "main")
 ```
 
 ## Basic Usage (Quick Start)
