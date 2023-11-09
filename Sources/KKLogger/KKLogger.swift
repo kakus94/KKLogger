@@ -7,22 +7,21 @@ import Foundation
 import XCGLogger
 
 // variable used to log in applikacjia during debugging
-@available(iOS 16.0, *)
-var log: XCGLogger = LogManager.share.getXCGLog(levelLog: .info)
+//@available(iOS 16.0, *)
+//var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
 
 @available(iOS 16.0, *)
-public class LogManager { 
+public class KKLogManager { 
   
-  static public let share = LogManager()
+  static public let share = KKLogManager()
   
   public var config: Config = Config.defaultConfig
   
-//  var sizeWhenDelateFile_KB: Double = 10_000.0
+  var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
   
-//  private let paths = FileManager.default
-//    .urls(for: .documentDirectory, in: .userDomainMask)
-//    .first!
-//    .appendingPathComponent("message.txt")
+  public func setLevelDebug(_ level: XCGLogger.Level ) { 
+    log.setup(level: level)
+  }
   
   
   public func size() -> Double? { 
@@ -110,7 +109,7 @@ public class LogManager {
     //  let consoleDestination = ConsoleDestination(identifier: "consoleDestination")
     //  consoleDestination.outputLevel = .debug // Ustaw poziom logowania według potrzeb
     //  log.add(destination: consoleDestination)
-    
+    self.log = log
     return log
    }()
   }
