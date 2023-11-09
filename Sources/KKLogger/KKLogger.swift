@@ -10,25 +10,59 @@ import XCGLogger
 //@available(iOS 16.0, *)
 //var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
 
+public typealias LevelDestination = [XCGLogger.Level: String]
+
 @available(iOS 16.0, *)
-public class KKLogManager { 
+public class KKLogManager: XCGLogger { 
   
-  static public let share = KKLogManager()
+  public init(config: KKLogConfig = .defaultConfig,
+              levelDescriprion: LevelDestination = KKLogManager.levelDescriprionDefault) {
+    
+    self.config = config 
+    
+    super.init()
+    
+    //Ustawienie opisow
+    self.setLevelDescriptions(newDescs: levelDescriprion)
+    
+    // Dodaj miejsce docelowe pliku do loggera
+    self.add(destination: fileDestination())
+    
+  }
+
   
-  public var config: KKLogConfig = KKLogConfig.defaultConfig
-  
-  var log: XCGLogger? 
-  
-  func setLevelDebug(_ level: XCGLogger.Level ) { 
-    log?.setup(level: level)
+  public static var levelDescriprionDefault: LevelDestination {
+    var values: LevelDestination = .init()
+    
+    values[.info] = "🩵Info"
+    values[.debug] = "💚debug"
+    values[.warning] = "⚠️warning"
+    values[.alert] = "❗️alert"
+    values[.error] = "⛔️error"
+    values[.severe] = "❌severe"
+    values[.emergency] = "🆘emergency"
+    
+    return values
   }
   
-  func size() -> Double? { 
+  public var config: KKLogConfig = KKLogConfig.defaultConfig  
+  
+  public func setLevelDescriptions(newDescs: [XCGLogger.Level: String]) {
+    for newDesc in newDescs {
+      self.levelDescriptions[newDesc.key] = newDesc.value
+    }
+  }
+  
+  public func setLevelDebug(_ level: XCGLogger.Level ) { 
+    self.setup(level: level)
+  }
+  
+  public func size() -> Double? { 
     do { 
       let fileAttributes = try FileManager.default
         .attributesOfItem(atPath: config.paths.path())
       if let fileSize = fileAttributes[.size] as? Int64 {
-        log?.info("Log file size: \(fileSize) B")
+        self.info("Log file size: \(fileSize) B")
         return Double( fileSize / 1_000 )
       }
     } catch { 
@@ -38,35 +72,35 @@ public class KKLogManager {
     return nil    
   }
   
- func sizeString() -> String? { 
+  public func sizeString() -> String? { 
     guard let size = size() else { return "not find" }    
     return String(format: "%.0f", size)
   }  
   
-  func whetherDeleteFile() { 
+  public func whetherDeleteFile() { 
     guard let size = size() else { return }//KB 
     if size > config.sizeWhenDelateFile_KB { 
       NotificationCenter.default.post(name: Notification.Name("AskDelateFile"), object: nil)
     }
   }
   
-  func delete() { 
+  public func delete() { 
     do {
       let fileManager = FileManager.default
       
       // Check if the file exists before attempting to delete it
       if fileManager.fileExists(atPath: config.paths.path) {        
         
-        log?.remove(destinationWithIdentifier: "fileDestination")
+        self.remove(destinationWithIdentifier: config.identifier)
         try fileManager.removeItem(at: config.paths)
-        log?.add(destination: fileDestination())                
+        self.add(destination: fileDestination())                
         
-        log?.info("File deleted successfully")
+        self.info("File deleted successfully")
       } else {
-        log?.warning("File does not exist")
+        self.warning("File does not exist")
       }
     } catch {
-      log?.error("Error deleting the file: \(error)")
+      self.error("Error deleting the file: \(error)")
     }
   }
   
@@ -87,46 +121,15 @@ public class KKLogManager {
     
     return fileDestination
   }
-  
-  public func getXCGLog(levelLog: XCGLogger.Level = .info, config: KKLogConfig) -> XCGLogger {
-    self.config = config 
-    return getXCGLog(levelLog: levelLog)    
-  }
-  
-  public func getXCGLog(levelLog: XCGLogger.Level = .info) -> XCGLogger { 
-   {
-    
-    let log = XCGLogger.default
-    
-    log.levelDescriptions[.info] = "🩵Info"
-    log.levelDescriptions[.debug] = "💚debug"
-    log.levelDescriptions[.warning] = "⚠️warning"
-    log.levelDescriptions[.alert] = "❗️alert"
-    log.levelDescriptions[.error] = "⛔️error"
-    log.levelDescriptions[.severe] = "❌severe"
-    log.levelDescriptions[.emergency] = "🆘emergency"
-    
-    // Dodaj miejsce docelowe pliku do loggera
-    log.add(destination: fileDestination())
-    
-    // Opcjonalnie, możesz dodać inne miejsca docelowe, takie jak konsola, aby widzieć logi w konsoli Xcode.
-    //  let consoleDestination = ConsoleDestination(identifier: "consoleDestination")
-    //  consoleDestination.outputLevel = .debug // Ustaw poziom logowania według potrzeb
-    //  log.add(destination: consoleDestination)
-    self.log = log
-    
-    print(log.fileLocation())
-    
-    return log
-   }()
-  }
+
   
 }
 
 
 
 @available(iOS 16.0, *)
-extension XCGLogger { 
+extension KKLogManager { 
+  
   
  public func get(_ functionName: StaticString = #function,
            fileName: StaticString = #file, 
@@ -162,34 +165,33 @@ extension XCGLogger {
     
   }
   
-  public func delateFileLog() { 
-    let kklm = KKLogManager.share
-    kklm.delete()
-  }
+//  public func delateFileLog() { 
+//    let kklm = KKLogManager.share
+//    kklm.delete()
+//  }
   
-  public func getSizeLogFile() -> String? { 
-    let kklm = KKLogManager.share
-    return kklm.sizeString()
-  }
+//  public func getSizeLogFile() -> String? { 
+//    let kklm = KKLogManager.share
+//    return kklm.sizeString()
+//  }
   
-  public func getSizeLogFile() -> Double? { 
-    let kklm = KKLogManager.share
-    return kklm.size()
-  }
+//  public func getSizeLogFile() -> Double? { 
+//    let kklm = KKLogManager.share
+//    return kklm.size()
+//  }
   
-  public func whetherDeleteFile() { 
-    let kklm = KKLogManager.share
-    kklm.whetherDeleteFile()
-  }
+//  public func whetherDeleteFile() { 
+//    let kklm = KKLogManager.share
+//    kklm.whetherDeleteFile()
+//  }
   
-  public func setLevelDebug(_ level: XCGLogger.Level) { 
-    let kklm = KKLogManager.share
-    kklm.setLevelDebug(level)
-  }
+//  public func setLevelDebug(_ level: XCGLogger.Level) { 
+//    let kklm = KKLogManager.share
+//    kklm.setLevelDebug(level)
+//  }
   
   public func fileLocation() -> String { 
-    let kklm = KKLogManager.share
-    return kklm.config.paths.description
+    return self.config.paths.description
   }
   
 }

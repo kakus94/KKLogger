@@ -1,12 +1,21 @@
 import XCTest
 @testable import KKLogger
 
+@available(iOS 16.0, *)
 final class KKLoggerTests: XCTestCase {
     func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
-
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+      let log = KKLogManager(levelDescriprion: [.info: "sda"])
+      
+      log.setLevelDebug(.verbose)
+      
+      log.info("info")
+      log.debug("debug")
+      log.error()
+      log.warning()
+      
+      print(log.fileLocation())
+      print(log.sizeString() ?? "" )
+      log.delete()
+      print(log.sizeString() ?? "" )
     }
 }
