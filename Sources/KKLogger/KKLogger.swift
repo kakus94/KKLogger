@@ -164,31 +164,7 @@ extension KKLogManager {
     }
     
   }
-  
-//  public func delateFileLog() { 
-//    let kklm = KKLogManager.share
-//    kklm.delete()
-//  }
-  
-//  public func getSizeLogFile() -> String? { 
-//    let kklm = KKLogManager.share
-//    return kklm.sizeString()
-//  }
-  
-//  public func getSizeLogFile() -> Double? { 
-//    let kklm = KKLogManager.share
-//    return kklm.size()
-//  }
-  
-//  public func whetherDeleteFile() { 
-//    let kklm = KKLogManager.share
-//    kklm.whetherDeleteFile()
-//  }
-  
-//  public func setLevelDebug(_ level: XCGLogger.Level) { 
-//    let kklm = KKLogManager.share
-//    kklm.setLevelDebug(level)
-//  }
+
   
   public func fileLocation() -> String { 
     return self.config.paths.description
@@ -208,17 +184,13 @@ public struct KKLogConfig {
   public var shouldAppend: Bool = true 
   public var nameLogFile: String = "log.txt"
   
-  public init(levelDebug: XCGLogger.Level,
-              sizeWhenDelateFile_KB: Double, 
-              identifier: String,
-              appendMarker: String, 
-              shouldAppend: Bool) {
-    
+  public init(levelDebug: XCGLogger.Level, sizeWhenDelateFile_KB: Double, identifier: String, appendMarker: String, shouldAppend: Bool, nameLogFile: String) {
     self.levelDebug = levelDebug
     self.sizeWhenDelateFile_KB = sizeWhenDelateFile_KB
     self.identifier = identifier
     self.appendMarker = appendMarker
     self.shouldAppend = shouldAppend
+    self.nameLogFile = nameLogFile
   }
   
   //private 
