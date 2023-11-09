@@ -75,7 +75,7 @@ public class KKLogManager: XCGLogger {
   public func sizeString() -> String? { 
     guard let size = size() else { return "not find" }    
     return String(format: "%.0f", size)
-  }  
+  }   
   
   public func whetherDeleteFile() { 
     guard let size = size() else { return }//KB 
