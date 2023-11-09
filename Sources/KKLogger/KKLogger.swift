@@ -205,7 +205,8 @@ public struct KKLogConfig {
           sizeWhenDelateFile_KB: 5_000.0, 
           identifier: "logDestination", 
           appendMarker: "-- ** * START APP * ** --", 
-          shouldAppend: true)
+          shouldAppend: true,
+          nameLogFile: "log.txt")
   }
   
 }
