@@ -15,7 +15,7 @@ public class KKLogManager {
   
   static public let share = KKLogManager()
   
-  public var config: Config = Config.defaultConfig
+  public var config: KKLogConfig = KKLogConfig.defaultConfig
   
   var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
   
