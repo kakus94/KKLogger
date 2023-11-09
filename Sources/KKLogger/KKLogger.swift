@@ -159,7 +159,7 @@ extension XCGLogger {
 
 
 
-public struct Config { 
+public struct KKLogConfig { 
   
   public var levelDebug: XCGLogger.Level = .debug 
   public var sizeWhenDelateFile_KB: Double = 10_000.0
@@ -188,7 +188,7 @@ public struct Config {
     .appendingPathComponent(nameLogFile)
   
   
-  static public var defaultConfig: Config { 
+  static public var defaultConfig: KKLogConfig { 
     .init(levelDebug: .debug,
           sizeWhenDelateFile_KB: 5_000.0, 
           identifier: "logDestination", 
