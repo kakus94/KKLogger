@@ -19,11 +19,11 @@ public class KKLogManager {
   
   var log: XCGLogger = KKLogManager.share.getXCGLog(levelLog: .info)
   
-  public func setLevelDebug(_ level: XCGLogger.Level ) { 
+  func setLevelDebug(_ level: XCGLogger.Level ) { 
     log.setup(level: level)
   }
   
-  public func size() -> Double? { 
+  func size() -> Double? { 
     do { 
       let fileAttributes = try FileManager.default
         .attributesOfItem(atPath: config.paths.path())
@@ -38,19 +38,19 @@ public class KKLogManager {
     return nil    
   }
   
- public func sizeString() -> String? { 
+ func sizeString() -> String? { 
     guard let size = size() else { return "not find" }    
     return String(format: "%.0f", size)
   }  
   
-  public func whetherDeleteFile() { 
+  func whetherDeleteFile() { 
     guard let size = size() else { return }//KB 
     if size > config.sizeWhenDelateFile_KB { 
       NotificationCenter.default.post(name: Notification.Name("AskDelateFile"), object: nil)
     }
   }
   
-  public func delete() { 
+  func delete() { 
     do {
       let fileManager = FileManager.default
       
@@ -122,6 +122,7 @@ public class KKLogManager {
 
 
 
+@available(iOS 16.0, *)
 extension XCGLogger { 
   
  public func get(_ functionName: StaticString = #function,
@@ -158,6 +159,31 @@ extension XCGLogger {
     
   }
   
+  public func delateFileLog() { 
+    let kklm = KKLogManager.share
+    kklm.delete()
+  }
+  
+  public func checkSizeLogFile() -> String? { 
+    let kklm = KKLogManager.share
+    return kklm.sizeString()
+  }
+  
+  public func checkSizeLogFile() -> Double? { 
+    let kklm = KKLogManager.share
+    return kklm.size()
+  }
+  
+  public func whetherDeleteFile() { 
+    let kklm = KKLogManager.share
+    kklm.whetherDeleteFile()
+  }
+  
+  public func setLevelDebug(_ level: XCGLogger.Level) { 
+    let kklm = KKLogManager.share
+    kklm.setLevelDebug(level)
+  }
+  
 }
 
 
@@ -170,7 +196,7 @@ public struct KKLogConfig {
   public var identifier: String = "logDestination" 
   public var appendMarker: String = "-- ** * START APP * ** --"
   public var shouldAppend: Bool = true 
-  public var nameLogFile: String = "message.txt"
+  public var nameLogFile: String = "log.txt"
   
   public init(levelDebug: XCGLogger.Level,
               sizeWhenDelateFile_KB: Double, 
