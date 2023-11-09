@@ -23,7 +23,6 @@ public class KKLogManager {
     log.setup(level: level)
   }
   
-  
   public func size() -> Double? { 
     do { 
       let fileAttributes = try FileManager.default
@@ -87,6 +86,11 @@ public class KKLogManager {
     fileDestination.showLineNumber = true 
     
     return fileDestination
+  }
+  
+  public func getXCGLog(levelLog: XCGLogger.Level = .info, config: KKLogConfig) -> XCGLogger {
+    self.config = config 
+    return getXCGLog(levelLog: levelLog)    
   }
   
   public func getXCGLog(levelLog: XCGLogger.Level = .info) -> XCGLogger { 
