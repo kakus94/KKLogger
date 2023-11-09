@@ -164,12 +164,12 @@ extension XCGLogger {
     kklm.delete()
   }
   
-  public func checkSizeLogFile() -> String? { 
+  public func getSizeLogFile() -> String? { 
     let kklm = KKLogManager.share
     return kklm.sizeString()
   }
   
-  public func checkSizeLogFile() -> Double? { 
+  public func getSizeLogFile() -> Double? { 
     let kklm = KKLogManager.share
     return kklm.size()
   }
