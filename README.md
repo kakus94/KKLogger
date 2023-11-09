@@ -22,12 +22,12 @@ Add the following entry to your package's dependencies:
 ```
 
 ## Basic Usage (Quick Start)
-Podstawowa konfiguracja. Tworzy instacje log która zapisuje dane do pliku log.txt  
+#### Podstawowa konfiguracja. Tworzy instacje log która zapisuje dane do pliku log.txt  
 ```Swift
 var log = KKLogManager(config: config)
 ```
 
- Konfiguracja wartosci domyslnych  
+ #### Konfiguracja wartosci domyslnych  
 ```Swift
 let config2: KKLogConfig = .init(levelDebug: .verbose,
                                 sizeWhenDelateFile_KB: 2_000,
@@ -38,7 +38,7 @@ let config2: KKLogConfig = .init(levelDebug: .verbose,
 
 let log2: KKLogManager = .init(config: config2)
 ```
-Konfiguracja znacznikow
+### Konfiguracja znacznikow
 ```Swift
 let levelDestination: LevelDestination = [ .info: "Info", .verbose: "verbose", .warning: "warning", .alert: "alert" ]
 let log3: KKLogManager = .init(levelDescriprion: levelDestination)
