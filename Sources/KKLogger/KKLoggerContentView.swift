@@ -26,8 +26,6 @@ public struct KKLoggerContentView: View {
             .font(.footnote)
         }
         .listStyle(InsetListStyle())
-        .navigationTitle("Logs")
-        .navigationBarTitleDisplayMode(.inline)
       }
       .onAppear { 
         bodyArray = getLogArrayFromFile(nlastLines)
