@@ -78,6 +78,10 @@ public class KKLogManager: XCGLogger {
     return nil    
   }
   
+  public func buttonDeleteAction() { 
+    sendNotifyToShowConfirmDialog()
+  }
+  
   public func sizeString() -> String? { 
     guard let size = size() else { return "not find" }    
     return String(format: "%.0f", size)
@@ -86,8 +90,12 @@ public class KKLogManager: XCGLogger {
   public func whetherDeleteFile() { 
     guard let size = size() else { return }//KB 
     if size > config.sizeWhenDelateFile_KB { 
-      NotificationCenter.default.post(name: Notification.Name.askDelateFile, object: nil, userInfo: ["id": config.identifier, "path": config.paths])
+      sendNotifyToShowConfirmDialog()
     }
+  }
+  
+  private func sendNotifyToShowConfirmDialog() { 
+    NotificationCenter.default.post(name: Notification.Name.askDelateFile, object: nil, userInfo: ["id": config.identifier, "path": config.paths])
   }
   
   public func NotificationObserver(_ handler: @escaping (Notification) -> Void) { 
