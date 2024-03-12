@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EDB2D1A2BA03D3F00D4EF79 /* KKLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EDB2D192BA03D3F00D4EF79 /* KKLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8EDB2D222BA03DCA00D4EF79 /* KKLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB2D202BA03DCA00D4EF79 /* KKLogger.swift */; };
+		8EDB2D232BA03DCA00D4EF79 /* KKLoggerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB2D212BA03DCA00D4EF79 /* KKLoggerContentView.swift */; };
+		8EDB2D2B2BA03F6B00D4EF79 /* ObjcExceptionBridging in Frameworks */ = {isa = PBXBuildFile; productRef = 8EDB2D2A2BA03F6B00D4EF79 /* ObjcExceptionBridging */; };
+		8EDB2D2D2BA03F6B00D4EF79 /* XCGLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 8EDB2D2C2BA03F6B00D4EF79 /* XCGLogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8EDB2D162BA03D3F00D4EF79 /* KKLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KKLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EDB2D192BA03D3F00D4EF79 /* KKLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KKLogger.h; sourceTree = "<group>"; };
+		8EDB2D202BA03DCA00D4EF79 /* KKLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KKLogger.swift; path = Sources/KKLogger.swift; sourceTree = "<group>"; };
+		8EDB2D212BA03DCA00D4EF79 /* KKLoggerContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KKLoggerContentView.swift; path = Sources/KKLoggerContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -20,6 +24,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EDB2D2B2BA03F6B00D4EF79 /* ObjcExceptionBridging in Frameworks */,
+				8EDB2D2D2BA03F6B00D4EF79 /* XCGLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -29,7 +35,8 @@
 		8EDB2D0C2BA03D3F00D4EF79 = {
 			isa = PBXGroup;
 			children = (
-				8EDB2D182BA03D3F00D4EF79 /* KKLogger */,
+				8EDB2D202BA03DCA00D4EF79 /* KKLogger.swift */,
+				8EDB2D212BA03DCA00D4EF79 /* KKLoggerContentView.swift */,
 				8EDB2D172BA03D3F00D4EF79 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -42,14 +49,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8EDB2D182BA03D3F00D4EF79 /* KKLogger */ = {
-			isa = PBXGroup;
-			children = (
-				8EDB2D192BA03D3F00D4EF79 /* KKLogger.h */,
-			);
-			path = KKLogger;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -57,7 +56,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EDB2D1A2BA03D3F00D4EF79 /* KKLogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +76,10 @@
 			dependencies = (
 			);
 			name = KKLogger;
+			packageProductDependencies = (
+				8EDB2D2A2BA03F6B00D4EF79 /* ObjcExceptionBridging */,
+				8EDB2D2C2BA03F6B00D4EF79 /* XCGLogger */,
+			);
 			productName = KKLogger;
 			productReference = 8EDB2D162BA03D3F00D4EF79 /* KKLogger.framework */;
 			productType = "com.apple.product-type.framework";
@@ -93,6 +95,7 @@
 				TargetAttributes = {
 					8EDB2D152BA03D3F00D4EF79 = {
 						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
 					};
 				};
 			};
@@ -105,6 +108,9 @@
 				Base,
 			);
 			mainGroup = 8EDB2D0C2BA03D3F00D4EF79;
+			packageReferences = (
+				8EDB2D292BA03F6B00D4EF79 /* XCRemoteSwiftPackageReference "XCGLogger" */,
+			);
 			productRefGroup = 8EDB2D172BA03D3F00D4EF79 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +135,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EDB2D232BA03DCA00D4EF79 /* KKLoggerContentView.swift in Sources */,
+				8EDB2D222BA03DCA00D4EF79 /* KKLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +271,8 @@
 		8EDB2D1E2BA03D3F00D4EF79 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -288,6 +297,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -296,7 +306,8 @@
 		8EDB2D1F2BA03D3F00D4EF79 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -348,6 +359,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8EDB2D292BA03F6B00D4EF79 /* XCRemoteSwiftPackageReference "XCGLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DaveWoodCom/XCGLogger.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8EDB2D2A2BA03F6B00D4EF79 /* ObjcExceptionBridging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EDB2D292BA03F6B00D4EF79 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = ObjcExceptionBridging;
+		};
+		8EDB2D2C2BA03F6B00D4EF79 /* XCGLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8EDB2D292BA03F6B00D4EF79 /* XCRemoteSwiftPackageReference "XCGLogger" */;
+			productName = XCGLogger;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8EDB2D0D2BA03D3F00D4EF79 /* Project object */;
 }
