@@ -56,7 +56,6 @@ let log: KKLogManager = .init()
 KKLoggerContentView(model: log)
 
 ```
-![Zrzut ekranu 2023-11-10 o 10 16 39](https://github.com/kakus94/KKLogger/assets/32176685/378cb34b-ff9e-43cb-9744-4ec5eb690927)
 
 A view with the option to delete a file
 * option 1: without confirmation
@@ -124,9 +123,7 @@ var body: some View {
 
 }
 ```
-![Zrzut ekranu 2023-11-10 o 10 29 42](https://github.com/kakus94/KKLogger/assets/32176685/c5df4733-5eb1-42bd-95a2-a17337d40180)
 
-![Zrzut ekranu 2023-11-10 o 10 32 13](https://github.com/kakus94/KKLogger/assets/32176685/2db968db-da2d-4645-8c57-20fe013a7c33)
 
 
 
