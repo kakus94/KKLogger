@@ -12,7 +12,7 @@ import XCGLogger
 
 public typealias LevelDestination = [XCGLogger.Level: String]
 
-@available(iOS 16.0, watchOS 9, *)
+@available(iOS 16.0, macOS 14.0, watchOS 9, *)
 public class KKLogManager: XCGLogger {
   
   public init(config: KKLogConfig = .defaultConfig, 
@@ -145,7 +145,7 @@ public class KKLogManager: XCGLogger {
 
 
 
-@available(iOS 16.0, watchOS 9, *)
+@available(iOS 16.0, macOS 14.0, watchOS 9, *)
 extension KKLogManager { 
   
   

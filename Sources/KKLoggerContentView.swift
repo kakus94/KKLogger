@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 16.0, watchOS 9, *)
+@available(iOS 16.0, macOS 14.0, watchOS 9, *)
 public struct KKLoggerContentView: View {
   
   var model: KKLogManager
@@ -53,7 +53,7 @@ public struct KKLoggerContentView: View {
   }    
 }
 
-@available(iOS 16.0, watchOS 9, *)
+@available(iOS 16.0, macOS 14.0, watchOS 9, *)
 struct ppreview: PreviewProvider {  
   static var previews: some View {
     KKLoggerContentView(model: KKLogManager())
