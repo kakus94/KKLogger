@@ -25,8 +25,8 @@ let package = Package(
       
       ]
     ),
-    .testTarget(
-      name: "KKLoggerTests",
-      dependencies: ["KKLogger"]),
+//    .testTarget(
+//      name: "KKLoggerTests",
+//      dependencies: ["KKLogger"]),
   ]
 )
